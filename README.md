@@ -1,3 +1,5 @@
+[![CI OnSen on BE](https://github.com/hailt-2586/onSen-base-project/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hailt-2586/onSen-base-project/actions/workflows/ci.yml)
+
 ## Feature list
 - [x] Database (PostgresSQL, TypeORM)
 - [ ] Caching (Redis store)
