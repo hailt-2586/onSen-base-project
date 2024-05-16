@@ -1,26 +1,23 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
+      useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
-        host: config.get<string>('POSTGRES_HOST'),
-        port: +config.get<string>('POSTGRES_PORT'),
-        username: config.get<string>('POSTGRES_USER'),
-        password: config.get<string>('POSTGRES_PASSWORD'),
-        database: config.get<string>('POSTGRES_DB'),
+        host: configService.get<string>('POSTGRES_HOST'),
+        port: configService.get<number>('POSTGRES_PORT'),
+        username: configService.get<string>('POSTGRES_USER'),
+        password: configService.get<string>('POSTGRES_PASSWORD'),
+        database: configService.get<string>('POSTGRES_DB'),
         autoLoadEntities: true,
         synchronize: false,
+        logging: false,
       }),
-      dataSourceFactory: async (options) => {
-        return await new DataSource(options).initialize();
-      },
     }),
   ],
 })
