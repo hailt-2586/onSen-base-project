@@ -1,5 +1,5 @@
 ## Feature list
-- [ ] Database (PostgresSQL, TypeORM)
+- [x] Database (PostgresSQL, TypeORM)
 - [ ] Caching (Redis store)
 - [ ] Validation (request params, query..)
 - [ ] Docker installation

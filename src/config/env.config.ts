@@ -3,9 +3,9 @@ export const envConfig = () => ({
   NODE_ENV: process.env.NODE_ENV,
 
   // config database
-  DB_HOST: process.env.DB_HOST,
-  DB_PORT: process.env.DB_PORT,
-  DB_USERNAME: process.env.DB_USERNAME,
-  DB_PASSWORD: process.env.DB_PASSWORD,
-  DB_DATABASE: process.env.DB_DATABASE,
+  POSTGRES_HOST: process.env.POSTGRES_HOST,
+  POSTGRES_PORT: process.env.POSTGRES_PORT,
+  POSTGRES_USER: process.env.POSTGRES_USER,
+  POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
+  POSTGRES_DB: process.env.POSTGRES_DB,
 });
