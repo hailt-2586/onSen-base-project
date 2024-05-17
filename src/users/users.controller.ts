@@ -1,13 +1,13 @@
 import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
 
 import { StoreUserDto } from './dto/store-user.dto';
-import { UserService } from './user.service';
+import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ResponseMessage } from '@shared/decorators/common.decorator';
 
 @Controller('users')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+export class UsersController {
+  constructor(private readonly userService: UsersService) {}
 
   @ResponseMessage('Store new a user')
   @Post()
