@@ -1,6 +1,8 @@
+import { NODE_ENV_DEV } from '@shared/constants/common.constant';
+
 export const envConfig = () => ({
   // config env
-  NODE_ENV: process.env.NODE_ENV,
+  NODE_ENV: process.env.NODE_ENV || NODE_ENV_DEV,
 
   // config database
   POSTGRES_HOST: process.env.POSTGRES_HOST,
