@@ -1,4 +1,5 @@
 # nestjs-codebase
+[![CI OnSen on BE](https://github.com/hailt-2586/onSen-base-project/actions/workflows/ci.yml/badge.svg)](https://github.com/hailt-2586/onSen-base-project/actions/workflows/ci.yml)
 
 ### 1. Clone repository
 `https://github.com/the-cev7/nestjs-codebase.git`
@@ -55,7 +56,6 @@ name=create_current_table yarn migration:generate
 ```
 yarn test
 ```
-[![CI OnSen on BE](https://github.com/hailt-2586/onSen-base-project/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hailt-2586/onSen-base-project/actions/workflows/ci.yml)
 
 ## Feature list
 - [x] Database (PostgreSQL, TypeORM)

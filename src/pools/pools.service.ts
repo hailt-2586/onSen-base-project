@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pool } from './entites/pool.entity';
@@ -20,21 +20,21 @@ export class PoolsService {
 
   /**
    * All Pool
-   * GET /liquidity-pools?page=1&limit=10
+   * GET /pools?page=1&limit=10
    *
    * Filter by Status
-   * GET /liquidity-pools?page=1&limit=10&status=live
-   * GET /liquidity-pools?page=1&limit=10&status=upcoming
-   * GET /liquidity-pools?page=1&limit=10&status=completed
+   * GET /pools?page=1&limit=10&status=live
+   * GET /pools?page=1&limit=10&status=upcoming
+   * GET /pools?page=1&limit=10&status=completed
    *
    * Filter by chain
-   * GET /liquidity-pools?page=1&limit=10&chain=Ethereum
+   * GET /pools?page=1&limit=10&chain=Ethereum
    *
    * Search by project_name or contract_address
-   * GET /liquidity-pools?page=1&limit=10&search=Solar
+   * GET /pools?page=1&limit=10&search=Solar
    *
    * Search by field specifics
-   * GET /liquidity-pools?page=1&limit=10&sortBy=funds_raised
+   * GET /pools?page=1&limit=10&sortBy=funds_raised
    */
   async findAll(options: PaginationDto): Promise<Pagination<Pool>> {
     const queryBuilder = this.poolRepository.createQueryBuilder('pool');
@@ -61,5 +61,13 @@ export class PoolsService {
     }
 
     return paginate<Pool>(queryBuilder, options);
+  }
+
+  async findOne(id: number) {
+    const pool = await this.poolRepository.findOneBy({ id });
+    if (!pool) {
+      throw new NotFoundException(`Pool with ID ${id} not found`);
+    }
+    return pool;
   }
 }

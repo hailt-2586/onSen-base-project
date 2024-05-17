@@ -14,6 +14,9 @@ export class User {
   @Column({ type: 'varchar', unique: true })
   wallet_address: string;
 
+  @Column({ type: 'varchar' })
+  wallet_type: string;
+
   @Column({ type: 'text', nullable: true })
   description: string;
 

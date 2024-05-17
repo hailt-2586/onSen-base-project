@@ -1,41 +1,41 @@
-import { IsInt, IsNotEmpty, IsOptional, IsString, IsDecimal } from 'class-validator';
+import { IsOptional, IsString, IsDecimal, IsInt, IsDateString } from 'class-validator';
 
 export class StorePoolDto {
   @IsString()
-  @IsNotEmpty()
-  project_name: string;
+  name: string;
 
   @IsString()
-  @IsNotEmpty()
-  contract_address: string;
-
-  @IsString()
-  @IsOptional()
-  description?: string;
+  ticker: string;
 
   @IsInt()
-  @IsOptional()
-  participants?: number;
+  participants: number;
 
   @IsDecimal()
+  funds_raised: number;
+
   @IsOptional()
-  funds_raised?: number;
+  @IsDateString()
+  live_until?: Date;
 
   @IsString()
-  @IsNotEmpty()
   status: string;
 
   @IsOptional()
+  @IsDateString()
+  opens_on?: Date;
+
+  @IsString()
+  chain: string;
+
+  @IsOptional()
+  @IsDateString()
   start_date?: Date;
 
   @IsOptional()
+  @IsDateString()
   end_date?: Date;
 
-  @IsString()
   @IsOptional()
-  chain?: string;
-
   @IsString()
-  @IsOptional()
   curator?: string;
 }
