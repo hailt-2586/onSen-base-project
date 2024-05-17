@@ -14,7 +14,7 @@ const dbDatasource: DataSourceOptions = {
   database: process.env.POSTGRES_DB,
   synchronize: false,
   entities: ['src/**/*.entity.{ts,js}'],
-  migrations: ['db/migrations/*.{ts,js}'],
+  migrations: ['src/database/migrations/*.{ts,js}'],
   migrationsTableName: 'migrations',
 };
 
