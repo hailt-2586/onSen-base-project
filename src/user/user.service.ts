@@ -1,8 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
-import { User } from './user.entity';
+import { User } from './entites/user.entity';
 import { StoreUserDto } from './dto/store-user.dto';
 
 @Injectable()
@@ -13,31 +12,24 @@ export class UserService {
   ) {}
 
   // store
-  async store(data: StoreUserDto): Promise<{
-    id: number;
-    public_address: string;
-    nonce: string;
-  }> {
-    const { public_address, nonce } = data;
+  async store(storeUserDto: StoreUserDto) {
+    const isDuplicateWalletAddress = await this.findByWalletAddress(storeUserDto.wallet_address);
+    if (isDuplicateWalletAddress) {
+      throw new BadRequestException(
+        'Wallet address already exists. Please use a different address.',
+      );
+    }
 
     try {
-      const user = new User();
-      user.public_address = public_address;
-      user.nonce = nonce;
-      const newUser = await this.userRepository.save(user);
-      return {
-        id: newUser.id,
-        public_address: newUser.public_address,
-        nonce: newUser.nonce,
-      }
+      return await this.userRepository.save(storeUserDto);
     } catch (error) {
-      console.log(data);
+      console.log(storeUserDto);
       console.log(error);
       throw new BadRequestException('Create user has an error');
     }
   }
 
-  async findBypublic_address(public_address: string): Promise<User | undefined> {
-    return this.userRepository.findOne({ where: [{ public_address }] });
+  async findByWalletAddress(wallet_address: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ where: [{ wallet_address }] });
   }
 }

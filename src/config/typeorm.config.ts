@@ -1,4 +1,3 @@
-import databaseConfig from './database.config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 import { config } from 'dotenv';

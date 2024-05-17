@@ -1,9 +1,7 @@
-import { IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class StoreUserDto {
+  @IsNotEmpty()
   @IsString()
-  public_address: string;
-
-  @IsString()
-  nonce: string;
+  wallet_address: string;
 }

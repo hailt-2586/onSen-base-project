@@ -9,11 +9,7 @@ export class UserController {
 
   @Post('/store')
   @HttpCode(HttpStatus.ACCEPTED)
-  async store(@Body() data: StoreUserDto): Promise<{
-    id: number;
-    public_address: string;
-    nonce: string;
-  }> {
-    return this.userService.store(data);
+  async store(@Body() storeUserDto: StoreUserDto) {
+    return this.userService.store(storeUserDto);
   }
 }
