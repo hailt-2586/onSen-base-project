@@ -6,28 +6,34 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'pools' })
+@Entity('pools')
 export class Pool {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  project_name: string;
+  @Column({ type: 'varchar', length: 255 })
+  name: string;
 
-  @Column({ unique: true })
-  contract_address: string;
+  @Column({ type: 'varchar', length: 50 })
+  ticker: string;
 
-  @Column('text', { nullable: true })
-  description: string;
-
-  @Column('int', { default: 0 })
+  @Column({ type: 'int' })
   participants: number;
 
-  @Column('decimal', { precision: 20, scale: 8, default: 0 })
+  @Column({ type: 'decimal', precision: 18, scale: 8 })
   funds_raised: number;
 
-  @Column()
+  @Column({ type: 'timestamp', nullable: true })
+  live_until: Date;
+
+  @Column({ type: 'varchar', length: 50 })
   status: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  opens_on: Date;
+
+  @Column({ type: 'varchar', length: 50 })
+  chain: string;
 
   @Column('timestamp', { nullable: true })
   start_date: Date;
@@ -35,10 +41,7 @@ export class Pool {
   @Column('timestamp', { nullable: true })
   end_date: Date;
 
-  @Column({ nullable: true })
-  chain: string;
-
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   curator: string;
 
   @CreateDateColumn()
