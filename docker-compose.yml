@@ -1,8 +1,16 @@
 version: '3.8'
-
+volumes:
+  onsen_postgres_volume:
 services:
   db:
-    image: postgres:14.11-alpine
+    image: postgres:13.4
+    restart: on-failure
+    networks:
+      - nestjs-net
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -10,23 +18,15 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - onsen_postgres_volume:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    restart: always
-    networks:
-      - onsen-net
+
   adminer:
     image: adminer
+    restart: always
     ports:
-      - "85:8080"
+      - "5050:8080"
     networks:
-      - onsen-net
+      - nestjs-net
+
 networks:
-  onsen-net:
+  nestjs-net:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.225.1.0/24
-          gateway: 172.225.1.1
-volumes:
-  onsen_postgres_volume:
