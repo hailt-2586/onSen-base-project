@@ -1,14 +1,26 @@
 version: '3.8'
-volumes:
-  onsen_postgres_volume:
+
 services:
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#      target: development
+#    volumes:
+#      - ./:/usr/src/app
+#    env_file:
+#      - .env
+#    command: npm run dev
+#    ports:
+#      - "3000:3000"
+#    environment:
+#      NODE_ENV: development
+#    depends_on:
+#      - db
+#    networks:
+#      - onsen-net
   db:
-    image: postgres:13.4
-    restart: on-failure
-    networks:
-      - nestjs-net
-    expose:
-      - "5432"
+    image: postgres:14.11-alpine
     ports:
       - "5432:5432"
     environment:
@@ -18,15 +30,24 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - onsen_postgres_volume:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - onsen-net
 
   adminer:
     image: adminer
-    restart: always
     ports:
-      - "5050:8080"
+      - "85:8080"
+    restart: always
     networks:
-      - nestjs-net
+      - onsen-net
 
 networks:
-  nestjs-net:
+  onsen-net:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.229.1.0/24
+          gateway: 172.229.1.1
+volumes:
+  onsen_postgres_volume:
