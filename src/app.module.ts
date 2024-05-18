@@ -5,6 +5,8 @@ import { NODE_ENV_DEV } from '@shared/constants/common.constant';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { PoolsModule } from './pools/pools.module';
+import { PoolDetailsModule } from './pool-details/pool-details.module';
+import { TransactionsModule } from './transactions/transactions.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { PoolsModule } from './pools/pools.module';
     DatabaseModule,
     UsersModule,
     PoolsModule,
+    PoolDetailsModule,
+    TransactionsModule,
   ],
 })
 export class AppModule {}

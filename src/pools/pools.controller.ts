@@ -23,6 +23,6 @@ export class PoolsController {
   @ResponseMessage('Get pool by id')
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    return this.poolsService.findOne(id);
+    return this.poolsService.findPoolWithDetails(id);
   }
 }

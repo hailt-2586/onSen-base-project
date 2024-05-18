@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -18,6 +19,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         synchronize: false,
         logging: false,
       }),
+      dataSourceFactory: async (options) => {
+        return await new DataSource(options).initialize();
+      },
     }),
   ],
 })
