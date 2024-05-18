@@ -63,11 +63,16 @@ export class PoolsService {
     return paginate<Pool>(queryBuilder, options);
   }
 
-  async findOne(id: number) {
-    const pool = await this.poolRepository.findOneBy({ id });
+  async findPoolWithDetails(id: number) {
+    const pool = await this.poolRepository
+      .createQueryBuilder('pool')
+      .leftJoinAndSelect('pool.poolDetails', 'poolDetails')
+      .where('pool.id = :id', { id })
+      .getOne();
     if (!pool) {
       throw new NotFoundException(`Pool with ID ${id} not found`);
     }
+
     return pool;
   }
 }

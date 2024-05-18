@@ -4,7 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { PoolDetails } from '../../pool-details/entites/pool-details.entity';
+import { Transaction } from '../../transactions/entites/transaction.entity';
 
 @Entity('pools')
 export class Pool {
@@ -44,9 +47,15 @@ export class Pool {
   @Column({ type: 'varchar', length: 255, nullable: true })
   curator: string;
 
+  @OneToMany(() => PoolDetails, (poolDetails) => poolDetails.pool)
+  poolDetails: PoolDetails[];
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.pool)
+  transactions: Transaction[];
 }
