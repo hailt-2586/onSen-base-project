@@ -10,4 +10,11 @@ export const envConfig = () => ({
   POSTGRES_USER: process.env.POSTGRES_USER,
   POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
   POSTGRES_DB: process.env.POSTGRES_DB,
+
+  // config cors
+  CORS_WHITELIST: process.env.CORS_WHITELIST,
+
+  // ethers infura provider
+  JWT_ACCESS_TOKEN_SECRET: process.env.JWT_ACCESS_TOKEN_SECRET,
+  JWT_ACCESS_TOKEN_EXPIRATION: process.env.JWT_ACCESS_TOKEN_EXPIRATION,
 });

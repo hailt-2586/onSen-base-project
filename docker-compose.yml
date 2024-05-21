@@ -20,7 +20,7 @@ services:
 #    networks:
 #      - onsen-net
   db:
-    image: postgres:14.11-alpine
+    image: timescale/timescaledb:latest-pg14
     ports:
       - "5432:5432"
     environment:

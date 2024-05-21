@@ -4,33 +4,31 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
 } from 'typeorm';
-import { Transaction } from '../../transactions/entites/transaction.entity';
 
 @Entity({ name: 'users' })
 export class User {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ type: 'varchar' })
+  username: string;
 
   @Column({ type: 'varchar', unique: true })
   wallet_address: string;
 
-  @Column({ type: 'varchar' })
-  wallet_type: string;
+  @Column({ type: 'varchar', nullable: true })
+  signature: string;
 
   @Column({ type: 'text', nullable: true })
   description: string;
 
   @Column({ type: 'varchar', nullable: true })
-  profile_image: string;
+  avatar: string;
 
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  @OneToMany(() => Transaction, (transaction) => transaction.user)
-  transactions: Transaction[];
 }

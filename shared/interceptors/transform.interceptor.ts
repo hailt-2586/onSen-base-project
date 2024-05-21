@@ -7,7 +7,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { RESPONSE_MESSAGE } from '@shared/decorators/common.decorator';
+import { RESPONSE_MESSAGE } from '../decorators/common.decorator';
 import { Reflector } from '@nestjs/core';
 
 @Injectable()
@@ -24,6 +24,7 @@ export class TransformInterceptor implements NestInterceptor {
       catchError((err) => {
         const status =
           err instanceof HttpException ? err.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+        console.log('catchError', err);
         const response = err.response || {
           statusCode: status,
           message: 'Unexpected error occurred',
