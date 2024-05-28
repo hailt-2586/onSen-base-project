@@ -4,9 +4,9 @@ import { envConfig } from '@config/env.config';
 import { NODE_ENV_DEV } from '@shared/constants/common.constant';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
-// import { PoolsModule } from './pools/pools.module';
 import { AuthModule } from './auth/auth.module';
 import { EthersModule } from './ethers/ethers.module';
+import { PoolsModule } from '@src/pools/pools.module';
 
 @Module({
   imports: [
@@ -19,9 +19,7 @@ import { EthersModule } from './ethers/ethers.module';
     UsersModule,
     AuthModule,
     EthersModule,
-    // PoolsModule,
-    // PoolDetailsModule,
-    // TransactionsModule,
+    PoolsModule,
   ],
 })
 export class AppModule {}

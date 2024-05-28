@@ -35,6 +35,7 @@ async function bootstrap() {
       .setTitle('Onsen API')
       .setDescription('The API description')
       .setVersion('1.0')
+      .addBearerAuth()
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('swagger/api', app, document);
