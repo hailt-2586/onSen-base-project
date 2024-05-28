@@ -63,10 +63,10 @@ yarn test
 - [ ] Sign in and sign up (JWT)
 - [ ] Forget password
 - [ ] Support multi-language i18n
-- [ ] Validation (request params, query..)
+- [x] Validation (request params, query..)
 - [x] Docker installation
 - [ ] CI/CD
-- [ ] Swagger for API document
-- [ ] Linter with Eslint for Typescript
-- [ ] Logger with `Morgan`
-- [ ] Debugger with `Winston`
+- [x] Swagger for API document
+- [x] Linter with Eslint for Typescript
+- [x] Logger with `Morgan`
+- [x] Debugger with `Winston`
