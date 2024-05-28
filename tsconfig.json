@@ -16,10 +16,12 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@config/*": ["./src/config/*"],
-      "@shared/*": ["./src/shared/*"],
+      "@src/*": ["./src/*"],
+      "@config/*": ["./config/*"],
+      "@shared/*": ["./shared/*"],
     }
   }
 }

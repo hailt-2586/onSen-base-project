@@ -1,41 +1,55 @@
-import { IsOptional, IsString, IsDecimal, IsInt, IsDateString } from 'class-validator';
+import { IsDateString, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { E_STATUS } from '@shared/enums/common.enum';
 
 export class StorePoolDto {
+  @IsNotEmpty()
   @IsString()
-  name: string;
+  @ApiProperty({ type: String })
+  project_name: string;
 
+  @IsNotEmpty()
   @IsString()
+  @ApiProperty({ type: String })
   ticker: string;
 
-  @IsInt()
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({ type: Number })
   participants: number;
 
-  @IsDecimal()
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({ type: Number })
   funds_raised: number;
 
   @IsOptional()
   @IsDateString()
+  @ApiProperty({ type: String })
   live_until?: Date;
 
-  @IsString()
+  @IsNotEmpty()
+  @IsEnum(E_STATUS)
+  @ApiProperty({ examples: [E_STATUS.LIVE, E_STATUS.UPCOMING] })
   status: string;
 
   @IsOptional()
   @IsDateString()
+  @ApiProperty({ type: String })
   opens_on?: Date;
 
+  @IsNotEmpty()
   @IsString()
+  @ApiProperty({ type: String })
   chain: string;
 
   @IsOptional()
   @IsDateString()
+  @ApiProperty({ type: String })
   start_date?: Date;
 
   @IsOptional()
-  @IsDateString()
-  end_date?: Date;
-
-  @IsOptional()
   @IsString()
+  @ApiProperty({ type: String })
   curator?: string;
 }

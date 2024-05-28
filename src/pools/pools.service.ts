@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pool } from './entites/pool.entity';
 import { StorePoolDto } from './dto/store-pool.dto';
-import { PaginationDto } from './dto/pagination.dto';
-import { paginate, Pagination } from 'nestjs-typeorm-paginate';
+import { IPaginationOptions, paginateRaw } from 'nestjs-typeorm-paginate';
+import { IPoolFilters } from '@src/pools/pool.interface';
 
 @Injectable()
 export class PoolsService {
@@ -14,8 +14,11 @@ export class PoolsService {
   ) {}
 
   async store(storePoolDto: StorePoolDto) {
-    const newPool = await this.poolRepository.save(storePoolDto);
-    return { pool: newPool };
+    const pool = await this.poolRepository.save(storePoolDto);
+    return {
+      id: pool.id,
+      created_at: pool.created_at,
+    };
   }
 
   /**
@@ -25,7 +28,6 @@ export class PoolsService {
    * Filter by Status
    * GET /pools?page=1&limit=10&status=live
    * GET /pools?page=1&limit=10&status=upcoming
-   * GET /pools?page=1&limit=10&status=completed
    *
    * Filter by chain
    * GET /pools?page=1&limit=10&chain=Ethereum
@@ -34,33 +36,30 @@ export class PoolsService {
    * GET /pools?page=1&limit=10&search=Solar
    *
    * Search by field specifics
-   * GET /pools?page=1&limit=10&sortBy=funds_raised
+   * GET /pools?page=1&limit=10&sortBy=created_at,asc
    */
-  async findAll(options: PaginationDto): Promise<Pagination<Pool>> {
+  async findAll(options: IPaginationOptions, filters: IPoolFilters, search: string, sort: string) {
     const queryBuilder = this.poolRepository.createQueryBuilder('pool');
+    const { status, chain } = filters;
+    const [field, order] = sort.split(',');
 
-    if (options.status) {
-      queryBuilder.andWhere('pool.status = :status', { status: options.status });
+    if (status) {
+      queryBuilder.andWhere('pool.status = :status', { status });
     }
 
-    if (options.chain) {
-      queryBuilder.andWhere('pool.chain = :chain', { chain: options.chain });
+    if (chain) {
+      queryBuilder.andWhere('pool.chain = :chain', { chain });
     }
 
-    if (options.search) {
-      queryBuilder.andWhere(
-        'pool.project_name LIKE :search OR pool.contract_address LIKE :search',
-        {
-          search: `%${options.search}%`,
-        },
-      );
+    if (search) {
+      queryBuilder.andWhere('pool.project_name LIKE :search', { search });
     }
 
-    if (options.sortBy) {
-      queryBuilder.orderBy(`pool.${options.sortBy}`, 'ASC');
+    if (sort) {
+      queryBuilder.orderBy(`pool.${field}`, order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC');
     }
 
-    return paginate<Pool>(queryBuilder, options);
+    return paginateRaw<Pool>(queryBuilder, options);
   }
 
   async findPoolWithDetails(id: number) {
