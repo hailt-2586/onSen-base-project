@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { E_STATUS } from '@shared/enums/common.enum';
-import { IPoolSocialLink } from '../pool.interface';
+import { ISocialLink } from '../pool.interface';
 
 export class SocialLinkDto {
   @IsNotEmpty()
@@ -84,7 +84,7 @@ export class StorePoolDto {
       { name: 'twitter', url: 'https://twitter.com/project' },
     ],
   })
-  social_links: IPoolSocialLink[];
+  social_links: ISocialLink[];
 
   @IsOptional()
   @IsBoolean()

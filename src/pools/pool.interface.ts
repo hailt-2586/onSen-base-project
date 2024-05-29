@@ -5,7 +5,7 @@ export interface IPoolFilters {
   chain?: string;
 }
 
-export interface IPoolSocialLink {
+export interface ISocialLink {
   name: string;
   url: string;
 }

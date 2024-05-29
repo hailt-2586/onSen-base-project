@@ -6,9 +6,11 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import { IPoolSocialLink } from '../pool.interface';
+import { ISocialLink } from '../pool.interface';
 import { Price } from '../../prices/entites/price.entity';
 import { PriceHistory } from '../../price_history/entites/price_history.entity';
+import { TeamMember } from '../../team_members/entites/team-members.entity';
+import { Ecosystem } from '../../ecosystems/entites/ecosystem.entity';
 
 @Entity('pools')
 export class Pool {
@@ -46,7 +48,7 @@ export class Pool {
   curator: string;
 
   @Column('jsonb', { nullable: true })
-  social_links: IPoolSocialLink[];
+  social_links: ISocialLink[];
 
   @Column({ type: 'boolean', nullable: true })
   token_vesting: boolean;
@@ -68,4 +70,10 @@ export class Pool {
 
   @OneToMany(() => PriceHistory, (price_history) => price_history.pool)
   price_histories: PriceHistory[];
+
+  @OneToMany(() => TeamMember, (team_member) => team_member.pool)
+  team_members: TeamMember[];
+
+  @OneToMany(() => Ecosystem, (ecosystem) => ecosystem.pool)
+  ecosystems: Ecosystem[];
 }

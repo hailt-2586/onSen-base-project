@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pool } from './entites/pool.entity';
@@ -8,6 +8,8 @@ import { PricesService } from '../prices/prices.service';
 import { IPoolFilters } from './pool.interface';
 import { PriceHistoryService } from '../price_history/price_history.service';
 import { getCurrentDate } from '@shared/utils/common.util';
+import { TeamMembersService } from '../team_members/team_members.service';
+import { EcosystemsService } from '../ecosystems/ecosystems.service';
 
 @Injectable()
 export class PoolsService {
@@ -18,6 +20,10 @@ export class PoolsService {
     private readonly pricesService: PricesService,
     @Inject(forwardRef(() => PriceHistoryService))
     private readonly priceHistoryService: PriceHistoryService,
+    @Inject(forwardRef(() => TeamMembersService))
+    private readonly teamMembersService: TeamMembersService,
+    @Inject(forwardRef(() => EcosystemsService))
+    private readonly ecosystemsService: EcosystemsService,
   ) {}
 
   async store(storePoolDto: StorePoolDto) {
@@ -89,6 +95,11 @@ export class PoolsService {
   }
 
   async findById(id: number) {
-    return await this.poolRepository.findOneBy({ id });
+    const pool = await this.poolRepository.findOneBy({ id });
+    if (!pool) {
+      throw new NotFoundException(`Pool with id ${id} not found`);
+    }
+
+    return pool;
   }
 }

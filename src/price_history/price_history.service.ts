@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PriceHistory } from './entites/price_history.entity';
 import { Repository } from 'typeorm';
@@ -15,10 +15,8 @@ export class PriceHistoryService {
   ) {}
 
   async store(storePriceHistoryDto: StorePriceHistoryDto) {
-    const pool = await this.poolsService.findById(storePriceHistoryDto.pool_id);
-    if (!pool) {
-      throw new NotFoundException(`Pool with id ${storePriceHistoryDto.pool_id} not found`);
-    }
+    // check pool exist
+    await this.poolsService.findById(storePriceHistoryDto.pool_id);
 
     const priceHistory = await this.priceHistoryRepository.save(storePriceHistoryDto);
 
