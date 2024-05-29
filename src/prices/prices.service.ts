@@ -16,10 +16,8 @@ export class PricesService {
   ) {}
 
   async store(storePriceDto: StorePriceDto) {
-    const pool = await this.poolsService.findById(storePriceDto.pool_id);
-    if (!pool) {
-      throw new NotFoundException(`Pool with id ${storePriceDto.pool_id} not found`);
-    }
+    // check pool exist
+    await this.poolsService.findById(storePriceDto.pool_id);
 
     const price = await this.priceRepository.save(storePriceDto);
 
