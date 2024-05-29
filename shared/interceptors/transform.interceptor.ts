@@ -24,7 +24,6 @@ export class TransformInterceptor implements NestInterceptor {
       catchError((err) => {
         const status =
           err instanceof HttpException ? err.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-        console.log('catchError', err);
         const response = err.response || {
           statusCode: status,
           message: 'Unexpected error occurred',

@@ -9,6 +9,7 @@ import { IPoolFilters } from './pool.interface';
 import { PriceHistoryService } from '../price_history/price_history.service';
 import { getCurrentDate } from '@shared/utils/common.util';
 import { TeamMembersService } from '../team_members/team_members.service';
+import { EcosystemsService } from '../ecosystems/ecosystems.service';
 
 @Injectable()
 export class PoolsService {
@@ -21,6 +22,8 @@ export class PoolsService {
     private readonly priceHistoryService: PriceHistoryService,
     @Inject(forwardRef(() => TeamMembersService))
     private readonly teamMembersService: TeamMembersService,
+    @Inject(forwardRef(() => EcosystemsService))
+    private readonly ecosystemsService: EcosystemsService,
   ) {}
 
   async store(storePoolDto: StorePoolDto) {

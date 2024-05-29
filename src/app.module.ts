@@ -12,6 +12,7 @@ import { PoolsModule } from './pools/pools.module';
 import { MorganMiddleware } from './logger/morgan.middleware';
 import { PriceHistoryModule } from './price_history/price_history.module';
 import { TeamMembersModule } from './team_members/team_members.module';
+import { EcosystemsModule } from './ecosystems/ecosystems.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TeamMembersModule } from './team_members/team_members.module';
     PricesModule,
     PriceHistoryModule,
     TeamMembersModule,
+    EcosystemsModule,
   ],
 })
 export class AppModule {

@@ -31,7 +31,7 @@ export class TeamMembersService {
   async findById(id: number) {
     const teamMember = await this.teamMemberRepository.findOneBy({ id });
     if (!teamMember) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Team member with id ${id} not found`);
     }
 
     return teamMember;
