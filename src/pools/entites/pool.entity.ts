@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { IPoolSocialLink } from '@src/pools/pool.interface';
 
 @Entity('pools')
 export class Pool {
@@ -40,6 +41,18 @@ export class Pool {
 
   @Column({ type: 'varchar', nullable: true })
   curator: string;
+
+  @Column('jsonb', { nullable: true })
+  social_links: IPoolSocialLink[];
+
+  @Column({ type: 'boolean', nullable: true })
+  token_vesting: boolean;
+
+  @Column({ type: 'varchar', nullable: true })
+  lbp_type: string;
+
+  @Column({ type: 'text', nullable: true })
+  about: string;
 
   @CreateDateColumn()
   created_at: Date;
