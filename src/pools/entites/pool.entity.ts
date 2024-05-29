@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
-import { IPoolSocialLink } from '@src/pools/pool.interface';
+import { IPoolSocialLink } from '../pool.interface';
+import { Price } from '../../prices/entites/price.entity';
 
 @Entity('pools')
 export class Pool {
@@ -60,9 +62,6 @@ export class Pool {
   @UpdateDateColumn()
   updated_at: Date;
 
-  // @OneToMany(() => PoolDetails, (poolDetails) => poolDetails.pool)
-  // poolDetails: PoolDetails[];
-
-  // @OneToMany(() => Transaction, (transaction) => transaction.pool)
-  // transactions: Transaction[];
+  @OneToMany(() => Price, (price) => price.pool)
+  prices: Price[];
 }

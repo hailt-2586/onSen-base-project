@@ -4,17 +4,31 @@ import { Repository } from 'typeorm';
 import { Pool } from './entites/pool.entity';
 import { StorePoolDto } from './dto/store-pool.dto';
 import { IPaginationOptions, paginateRaw } from 'nestjs-typeorm-paginate';
-import { IPoolFilters } from '@src/pools/pool.interface';
+import { PricesService } from '../prices/prices.service';
+import { IPoolFilters } from './pool.interface';
 
 @Injectable()
 export class PoolsService {
   constructor(
     @InjectRepository(Pool)
     private readonly poolRepository: Repository<Pool>,
+    private readonly pricesService: PricesService,
   ) {}
 
   async store(storePoolDto: StorePoolDto) {
     const pool = await this.poolRepository.save(storePoolDto);
+
+    // Create base price after create pool
+    await this.pricesService.store({
+      pool,
+      current_price: 0,
+      market_cap: 0,
+      liquidity: 0,
+      pool_value: 0,
+      fdv: 0,
+      volume: 0,
+    });
+
     return {
       id: pool.id,
       created_at: pool.created_at,

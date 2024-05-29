@@ -3,11 +3,11 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { JwtAuthGuard } from '@src/auth/jwt/jwt-auth.guard';
 import { TransformInterceptor } from '@shared/interceptors/transform.interceptor';
 import { corsConfig } from '@config/cors.config';
 import { ValidationConfig } from '@config/validation.config';
 import { NODE_ENV_DEV } from '@shared/constants/common.constant';
+import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

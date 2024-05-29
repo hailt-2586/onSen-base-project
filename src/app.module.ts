@@ -6,9 +6,10 @@ import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { EthersModule } from './ethers/ethers.module';
-import { PoolsModule } from '@src/pools/pools.module';
-import { LoggerModule } from '@src/logger/logger.module';
-import { MorganMiddleware } from '@src/logger/morgan.middleware';
+import { PricesModule } from './prices/prices.module';
+import { LoggerModule } from './logger/logger.module';
+import { PoolsModule } from './pools/pools.module';
+import { MorganMiddleware } from './logger/morgan.middleware';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { MorganMiddleware } from '@src/logger/morgan.middleware';
     AuthModule,
     EthersModule,
     PoolsModule,
+    PricesModule,
   ],
 })
 export class AppModule {

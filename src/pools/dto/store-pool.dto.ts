@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { E_STATUS } from '@shared/enums/common.enum';
-import { IPoolSocialLink } from '@src/pools/pool.interface';
+import { IPoolSocialLink } from '../pool.interface';
 
 export class SocialLinkDto {
   @IsNotEmpty()
