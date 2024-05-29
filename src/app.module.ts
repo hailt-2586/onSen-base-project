@@ -10,6 +10,7 @@ import { PricesModule } from './prices/prices.module';
 import { LoggerModule } from './logger/logger.module';
 import { PoolsModule } from './pools/pools.module';
 import { MorganMiddleware } from './logger/morgan.middleware';
+import { PriceHistoryModule } from './price_history/price_history.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { MorganMiddleware } from './logger/morgan.middleware';
     EthersModule,
     PoolsModule,
     PricesModule,
+    PriceHistoryModule,
   ],
 })
 export class AppModule {

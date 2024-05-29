@@ -4,7 +4,6 @@ import {
   DefaultValuePipe,
   Get,
   HttpStatus,
-  Param,
   ParseIntPipe,
   Post,
   Query,
@@ -84,11 +83,5 @@ export class PoolsController {
     @Query('sort') sort: string = '',
   ) {
     return this.poolsService.findAll({ page, limit }, { status, chain }, search, sort);
-  }
-
-  @ResponseMessage('Get pool by id')
-  @Get(':id')
-  async findOne(@Param('id') id: number) {
-    return this.poolsService.findPoolWithDetails(id);
   }
 }

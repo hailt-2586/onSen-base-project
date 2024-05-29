@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { IPoolSocialLink } from '../pool.interface';
 import { Price } from '../../prices/entites/price.entity';
+import { PriceHistory } from '../../price_history/entites/price_history.entity';
 
 @Entity('pools')
 export class Pool {
@@ -64,4 +65,7 @@ export class Pool {
 
   @OneToMany(() => Price, (price) => price.pool)
   prices: Price[];
+
+  @OneToMany(() => PriceHistory, (price_history) => price_history.pool)
+  price_histories: PriceHistory[];
 }

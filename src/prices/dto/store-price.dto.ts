@@ -1,10 +1,11 @@
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Pool } from '../../pools/entites/pool.entity';
 
 export class StorePriceDto {
-  @ApiProperty({ type: () => Pool })
-  pool: Pool;
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({ type: Number })
+  pool_id: number;
 
   @IsNumber()
   @ApiProperty({ example: 0 })
