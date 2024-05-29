@@ -4,7 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { IPoolSocialLink } from '../pool.interface';
+import { Price } from '../../prices/entites/price.entity';
+import { PriceHistory } from '../../price_history/entites/price_history.entity';
 
 @Entity('pools')
 export class Pool {
@@ -41,15 +45,27 @@ export class Pool {
   @Column({ type: 'varchar', nullable: true })
   curator: string;
 
+  @Column('jsonb', { nullable: true })
+  social_links: IPoolSocialLink[];
+
+  @Column({ type: 'boolean', nullable: true })
+  token_vesting: boolean;
+
+  @Column({ type: 'varchar', nullable: true })
+  lbp_type: string;
+
+  @Column({ type: 'text', nullable: true })
+  about: string;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
 
-  // @OneToMany(() => PoolDetails, (poolDetails) => poolDetails.pool)
-  // poolDetails: PoolDetails[];
+  @OneToMany(() => Price, (price) => price.pool)
+  prices: Price[];
 
-  // @OneToMany(() => Transaction, (transaction) => transaction.pool)
-  // transactions: Transaction[];
+  @OneToMany(() => PriceHistory, (price_history) => price_history.pool)
+  price_histories: PriceHistory[];
 }

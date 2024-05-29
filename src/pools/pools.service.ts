@@ -1,20 +1,46 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pool } from './entites/pool.entity';
 import { StorePoolDto } from './dto/store-pool.dto';
 import { IPaginationOptions, paginateRaw } from 'nestjs-typeorm-paginate';
-import { IPoolFilters } from '@src/pools/pool.interface';
+import { PricesService } from '../prices/prices.service';
+import { IPoolFilters } from './pool.interface';
+import { PriceHistoryService } from '../price_history/price_history.service';
+import { getCurrentDate } from '@shared/utils/common.util';
 
 @Injectable()
 export class PoolsService {
   constructor(
     @InjectRepository(Pool)
     private readonly poolRepository: Repository<Pool>,
+    @Inject(forwardRef(() => PricesService))
+    private readonly pricesService: PricesService,
+    @Inject(forwardRef(() => PriceHistoryService))
+    private readonly priceHistoryService: PriceHistoryService,
   ) {}
 
   async store(storePoolDto: StorePoolDto) {
     const pool = await this.poolRepository.save(storePoolDto);
+
+    // Create base price after create pool
+    await this.pricesService.store({
+      pool_id: pool.id,
+      current_price: 0,
+      market_cap: 0,
+      liquidity: 0,
+      pool_value: 0,
+      fdv: 0,
+      volume: 0,
+    });
+
+    // Create base price history after create pool
+    await this.priceHistoryService.store({
+      pool_id: pool.id,
+      date: getCurrentDate() as unknown as Date,
+      price: 0,
+    });
+
     return {
       id: pool.id,
       created_at: pool.created_at,
@@ -62,16 +88,7 @@ export class PoolsService {
     return paginateRaw<Pool>(queryBuilder, options);
   }
 
-  async findPoolWithDetails(id: number) {
-    const pool = await this.poolRepository
-      .createQueryBuilder('pool')
-      .leftJoinAndSelect('pool.poolDetails', 'poolDetails')
-      .where('pool.id = :id', { id })
-      .getOne();
-    if (!pool) {
-      throw new NotFoundException(`Pool with ID ${id} not found`);
-    }
-
-    return pool;
+  async findById(id: number) {
+    return await this.poolRepository.findOneBy({ id });
   }
 }

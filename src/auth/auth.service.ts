@@ -1,12 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { EthersService } from '@src/ethers/ethers.service';
-import { LoginDto } from '@src/auth/dto/login.dto';
-import { UsersService } from '@src/users/users.service';
-import { User } from '@src/users/entites/user.entity';
 import ms from 'ms';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { IAuth } from '@src/auth/auth.interface';
+import { EthersService } from '../ethers/ethers.service';
+import { UsersService } from '../users/users.service';
+import { LoginDto } from './dto/login.dto';
+import { User } from '../users/entites/user.entity';
+import { IAuth } from './auth.interface';
 
 @Injectable()
 export class AuthService {
