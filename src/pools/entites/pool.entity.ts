@@ -11,6 +11,7 @@ import { Price } from '../../prices/entites/price.entity';
 import { PriceHistory } from '../../price_history/entites/price_history.entity';
 import { TeamMember } from '../../team_members/entites/team-members.entity';
 import { Ecosystem } from '../../ecosystems/entites/ecosystem.entity';
+import { PoolDetails } from '../../pool_details/entites/pool-details.entity';
 
 @Entity('pools')
 export class Pool {
@@ -76,4 +77,7 @@ export class Pool {
 
   @OneToMany(() => Ecosystem, (ecosystem) => ecosystem.pool)
   ecosystems: Ecosystem[];
+
+  @OneToMany(() => PoolDetails, (poolDetails) => poolDetails.pool)
+  details: PoolDetails[];
 }

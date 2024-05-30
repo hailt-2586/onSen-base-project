@@ -67,7 +67,19 @@ export class PoolsController {
     ),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
-  async findInformationWithRelations(@Param('id') id: number) {
-    return this.poolsService.findInformationWithRelations(id);
+  async findPoolWithInformation(@Param('id') id: number) {
+    return this.poolsService.findPoolWithInformation(id);
+  }
+
+  @Public()
+  @ResponseMessage('Get pool by id with details')
+  @Get(':id/details')
+  @ApiOperation({ summary: 'Get pool by id with details' })
+  @ApiResponse(
+    exampleSuccessResponse(HttpStatus.OK, 'Get pool by id with details', PoolMock.poolWithDetails),
+  )
+  @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
+  async findPoolWithDetails(@Param('id') id: number) {
+    return this.poolsService.findPoolWithDetails(id);
   }
 }

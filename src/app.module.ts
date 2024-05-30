@@ -13,6 +13,7 @@ import { MorganMiddleware } from './logger/morgan.middleware';
 import { PriceHistoryModule } from './price_history/price_history.module';
 import { TeamMembersModule } from './team_members/team_members.module';
 import { EcosystemsModule } from './ecosystems/ecosystems.module';
+import { PoolDetailsModule } from './pool_details/pool_details.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { EcosystemsModule } from './ecosystems/ecosystems.module';
     PriceHistoryModule,
     TeamMembersModule,
     EcosystemsModule,
+    PoolDetailsModule,
   ],
 })
 export class AppModule {

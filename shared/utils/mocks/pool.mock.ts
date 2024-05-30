@@ -81,4 +81,33 @@ export const PoolMock = {
     team_members: [],
     ecosystems: [],
   },
+  poolWithDetails: {
+    id: 4,
+    project_name: 'project 4',
+    ticker: 'string',
+    participants: 0,
+    funds_raised: '0.00000000',
+    live_until: '2024-05-29T14:48:00.000Z',
+    status: 'Upcoming',
+    opens_on: '2024-05-29T14:48:00.000Z',
+    chain: 'string',
+    start_date: '2024-05-29T14:48:00.000Z',
+    curator: 'string',
+    social_links: [
+      {
+        url: 'https://projectwebsite.com',
+        name: 'website',
+      },
+      {
+        url: 'https://twitter.com/project',
+        name: 'twitter',
+      },
+    ],
+    token_vesting: true,
+    lbp_type: 'string',
+    about: 'string',
+    created_at: '2024-05-28T23:45:51.088Z',
+    updated_at: '2024-05-28T23:45:51.088Z',
+    details: [],
+  },
 };
