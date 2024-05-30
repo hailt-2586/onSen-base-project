@@ -5,6 +5,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { Pool } from '../../pools/entites/pool.entity';
 
@@ -29,5 +30,6 @@ export class Ecosystem {
   updated_at: Date;
 
   @ManyToOne(() => Pool, (pool) => pool.ecosystems, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'poolId' })
   pool: Pool;
 }

@@ -11,14 +11,28 @@ import { TeamMember } from '../team_members/entites/team-members.entity';
 import { TeamMembersModule } from '../team_members/team_members.module';
 import { Ecosystem } from '../ecosystems/entites/ecosystem.entity';
 import { EcosystemsModule } from '../ecosystems/ecosystems.module';
+import { PoolDetails } from '../pool_details/entites/pool-details.entity';
+import { PoolDetailsModule } from '../pool_details/pool_details.module';
+import { Trade } from '../trades/entites/trade.entity';
+import { TradesModule } from '../trades/trades.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Pool, Price, PriceHistory, TeamMember, Ecosystem]),
+    TypeOrmModule.forFeature([
+      Pool,
+      Price,
+      PriceHistory,
+      TeamMember,
+      Ecosystem,
+      PoolDetails,
+      Trade,
+    ]),
     forwardRef(() => PricesModule),
     forwardRef(() => PriceHistoryModule),
     forwardRef(() => TeamMembersModule),
     forwardRef(() => EcosystemsModule),
+    forwardRef(() => PoolDetailsModule),
+    forwardRef(() => TradesModule),
   ],
   exports: [PoolsService],
   controllers: [PoolsController],

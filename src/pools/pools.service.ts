@@ -10,6 +10,8 @@ import { PriceHistoryService } from '../price_history/price_history.service';
 import { getCurrentDate } from '@shared/utils/common.util';
 import { TeamMembersService } from '../team_members/team_members.service';
 import { EcosystemsService } from '../ecosystems/ecosystems.service';
+import { PoolDetailsService } from '../pool_details/pool_details.service';
+import { TradesService } from '../trades/trades.service';
 
 @Injectable()
 export class PoolsService {
@@ -24,6 +26,10 @@ export class PoolsService {
     private readonly teamMembersService: TeamMembersService,
     @Inject(forwardRef(() => EcosystemsService))
     private readonly ecosystemsService: EcosystemsService,
+    @Inject(forwardRef(() => PoolDetailsService))
+    private readonly poolDetailsService: PoolDetailsService,
+    @Inject(forwardRef(() => TradesService))
+    private readonly tradesService: TradesService,
   ) {}
 
   async store(storePoolDto: StorePoolDto) {
@@ -101,5 +107,25 @@ export class PoolsService {
     }
 
     return pool;
+  }
+
+  async findInformationInPool(id: number) {
+    return await this.poolRepository.findOne({
+      where: { id },
+      relations: ['prices', 'price_histories', 'team_members', 'ecosystems'],
+    });
+  }
+
+  async findDetailsInPool(id: number) {
+    return await this.poolRepository.findOne({
+      where: { id },
+      relations: ['details'],
+    });
+  }
+
+  async findTradesInPool(id: number, options: IPaginationOptions, sort: string) {
+    const pool = await this.findById(id);
+    const trades = await this.tradesService.findTradesInPool(id, options, sort);
+    return { ...pool, trades };
   }
 }

@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class StoreEcosystemDto {
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   @ApiProperty({ type: Number })
   pool_id: number;
 

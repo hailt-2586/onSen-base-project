@@ -5,6 +5,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { Pool } from '../../pools/entites/pool.entity';
 
@@ -38,5 +39,6 @@ export class Price {
   updated_at: Date;
 
   @ManyToOne(() => Pool, (project) => project.prices, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'poolId' })
   pool: Pool;
 }

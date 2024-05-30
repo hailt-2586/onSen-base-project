@@ -16,9 +16,11 @@ export class PriceHistoryService {
 
   async store(storePriceHistoryDto: StorePriceHistoryDto) {
     // check pool exist
-    await this.poolsService.findById(storePriceHistoryDto.pool_id);
-
-    const priceHistory = await this.priceHistoryRepository.save(storePriceHistoryDto);
+    const pool = await this.poolsService.findById(storePriceHistoryDto.pool_id);
+    const priceHistory = await this.priceHistoryRepository.save({
+      ...storePriceHistoryDto,
+      pool,
+    });
 
     return {
       id: priceHistory.id,
