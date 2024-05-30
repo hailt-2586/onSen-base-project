@@ -126,6 +126,6 @@ export class PoolsService {
   async findTradesInPool(id: number, options: IPaginationOptions, sort: string) {
     const pool = await this.findById(id);
     const trades = await this.tradesService.findTradesInPool(id, options, sort);
-    return { pool, trades };
+    return { ...pool, trades };
   }
 }

@@ -19,6 +19,16 @@ export class StorePoolDetailsDto {
   @IsOptional()
   @IsDateString()
   @ApiProperty({ type: Date })
+  duration_start_date?: Date;
+
+  @IsOptional()
+  @IsDateString()
+  @ApiProperty({ type: Date })
+  duration_end_date?: Date;
+
+  @IsOptional()
+  @IsDateString()
+  @ApiProperty({ type: Date })
   token_vesting_start?: Date;
 
   @IsOptional()
@@ -29,7 +39,37 @@ export class StorePoolDetailsDto {
   @IsOptional()
   @IsDateString()
   @ApiProperty({ type: Date })
-  token_cliff?: Date;
+  cliff_date?: Date;
+
+  @IsOptional()
+  @IsDateString()
+  @ApiProperty({ type: Date })
+  cliff_end_date?: Date;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({ type: Number })
+  start_weight?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({ type: Number })
+  end_weight?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({ type: Number })
+  starting_balances?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({ type: Number })
+  current_balances?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({ type: Number })
+  project_token_release?: number;
 
   @IsOptional()
   @IsNumber()

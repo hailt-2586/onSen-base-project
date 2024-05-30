@@ -1,11 +1,11 @@
-import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ISocialLink } from '../../pools/pool.interface';
 import { SocialLinkDto } from '../../pools/dto/store-pool.dto';
 
 export class StoreTeamMemberDto {
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   @ApiProperty()
   pool_id: number;
 

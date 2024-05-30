@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import { ISocialLink } from '../pool.interface';
 import { Price } from '../../prices/entites/price.entity';
@@ -79,8 +80,8 @@ export class Pool {
   @OneToMany(() => Ecosystem, (ecosystem) => ecosystem.pool)
   ecosystems: Ecosystem[];
 
-  @OneToMany(() => PoolDetails, (poolDetails) => poolDetails.pool)
-  details: PoolDetails[];
+  @OneToOne(() => PoolDetails, (poolDetails) => poolDetails.pool)
+  details: PoolDetails;
 
   @OneToMany(() => Trade, (trade) => trade.pool)
   trades: Trade[];
