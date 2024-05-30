@@ -6,6 +6,7 @@ import { exampleErrorResponse, exampleSuccessResponse } from '@shared/utils/comm
 import { ErrorResponseDto } from '@shared/dto/common.dto';
 import { StoreEcosystemDto } from './dto/store-ecosystem.dto';
 import { UpdateEcosystemDto } from './dto/update-ecosystem.dto';
+import { EcosystemMock } from '@shared/utils/mocks/ecosystem.mock';
 
 @Controller('ecosystems')
 @ApiTags('ecosystems')
@@ -16,10 +17,7 @@ export class EcosystemsController {
   @Post()
   @ApiOperation({ summary: 'Store new a ecosystem' })
   @ApiResponse(
-    exampleSuccessResponse(HttpStatus.CREATED, 'Store new a ecosystem', {
-      id: 1,
-      created_at: '2024-05-20T19:49:52.062Z',
-    }),
+    exampleSuccessResponse(HttpStatus.CREATED, 'Store new a ecosystem', EcosystemMock.store),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
   store(@Body() storeEcosystemDto: StoreEcosystemDto) {
@@ -30,10 +28,7 @@ export class EcosystemsController {
   @Patch(':id')
   @ApiOperation({ summary: 'Update a ecosystem by id' })
   @ApiResponse(
-    exampleSuccessResponse(HttpStatus.OK, 'Update a ecosystem by id', {
-      id: 1,
-      updated_at: '2024-05-20T19:49:52.062Z',
-    }),
+    exampleSuccessResponse(HttpStatus.OK, 'Update a ecosystem by id', EcosystemMock.update),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
   update(@Param('id') id: number, @Body() updateEcosystemDto: UpdateEcosystemDto) {
@@ -44,10 +39,7 @@ export class EcosystemsController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a ecosystem by id' })
   @ApiResponse(
-    exampleSuccessResponse(HttpStatus.OK, 'Delete a ecosystem by id', {
-      id: 1,
-      deleted_at: '2024-05-20T19:49:52.062Z',
-    }),
+    exampleSuccessResponse(HttpStatus.OK, 'Delete a ecosystem by id', EcosystemMock.delete),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
   async remove(@Param('id') id: number) {

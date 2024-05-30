@@ -5,6 +5,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { StorePriceHistoryDto } from './dto/store-price-history.dto';
 import { exampleErrorResponse, exampleSuccessResponse } from '@shared/utils/common.util';
 import { ErrorResponseDto } from '@shared/dto/common.dto';
+import { PriceHistoryMock } from '@shared/utils/mocks/price-history.mock';
 
 @Controller('price-history')
 @ApiTags('price history')
@@ -15,10 +16,7 @@ export class PriceHistoryController {
   @Post()
   @ApiOperation({ summary: 'Store new a price history' })
   @ApiResponse(
-    exampleSuccessResponse(HttpStatus.CREATED, 'Store new a price history', {
-      id: 1,
-      created_at: '2024-05-20T19:49:52.062Z',
-    }),
+    exampleSuccessResponse(HttpStatus.CREATED, 'Store new a price history', PriceHistoryMock.store),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
   store(@Body() storePriceHistoryDto: StorePriceHistoryDto) {

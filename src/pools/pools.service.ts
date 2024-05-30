@@ -102,4 +102,11 @@ export class PoolsService {
 
     return pool;
   }
+
+  async findInformationWithRelations(id: number) {
+    return await this.poolRepository.findOne({
+      where: { id },
+      relations: ['prices', 'price_histories', 'team_members', 'ecosystems'],
+    });
+  }
 }

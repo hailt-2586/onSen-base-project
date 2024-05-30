@@ -6,6 +6,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseMessage } from '@shared/decorators/common.decorator';
 import { exampleErrorResponse, exampleSuccessResponse } from '@shared/utils/common.util';
 import { ErrorResponseDto } from '@shared/dto/common.dto';
+import { UserMock } from '@shared/utils/mocks/user.mock';
 
 @Controller('users')
 @ApiTags('users')
@@ -15,12 +16,7 @@ export class UsersController {
   @ResponseMessage('Store new a user')
   @Post()
   @ApiOperation({ summary: 'Store new a user' })
-  @ApiResponse(
-    exampleSuccessResponse(HttpStatus.CREATED, 'Store new a user', {
-      wallet_address: '0x8D1f213d40f9C5ce768f2ee338CB38149fa065C9',
-      created_at: '2024-05-20T19:49:52.062Z',
-    }),
-  )
+  @ApiResponse(exampleSuccessResponse(HttpStatus.CREATED, 'Store new a user', UserMock.store))
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
   async store(@Body() storeUserDto: StoreUserDto) {
     return this.userService.store(storeUserDto);
@@ -30,15 +26,11 @@ export class UsersController {
   @Get(':wallet_address')
   @ApiOperation({ summary: 'Get user by wallet_address' })
   @ApiResponse(
-    exampleSuccessResponse(HttpStatus.OK, 'Get user by wallet_address', {
-      id: 2,
-      wallet_address: '0x8D1f213d40f9C5ce768f2ee338CB38149fa065C9',
-      wallet_type: 'ETH',
-      description: 'string',
-      profile_image: 'string',
-      created_at: '2024-05-20T19:49:52.062Z',
-      updated_at: '2024-05-20T19:49:52.062Z',
-    }),
+    exampleSuccessResponse(
+      HttpStatus.OK,
+      'Get user by wallet_address',
+      UserMock.getByWalletAddress,
+    ),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
   findOne(@Param('wallet_address') wallet_address: string) {
@@ -49,10 +41,11 @@ export class UsersController {
   @Patch(':wallet_address')
   @ApiOperation({ summary: 'Update a user by wallet_address' })
   @ApiResponse(
-    exampleSuccessResponse(HttpStatus.OK, 'Update a user by wallet_address', {
-      wallet_address: '0x8D1f213d40f9C5ce768f2ee338CB38149fa065C9',
-      updated_at: '2024-05-20T19:49:52.062Z',
-    }),
+    exampleSuccessResponse(
+      HttpStatus.OK,
+      'Update a user by wallet_address',
+      UserMock.updateByWalletAddress,
+    ),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
   async update(
@@ -66,10 +59,11 @@ export class UsersController {
   @Delete(':wallet_address')
   @ApiOperation({ summary: 'Delete a user by wallet_address' })
   @ApiResponse(
-    exampleSuccessResponse(HttpStatus.OK, 'Delete a user by wallet_address', {
-      wallet_address: '0x8D1f213d40f9C5ce768f2ee338CB38149fa065C9',
-      deleted_at: '2024-05-20T19:49:52.062Z',
-    }),
+    exampleSuccessResponse(
+      HttpStatus.OK,
+      'Delete a user by wallet_address',
+      UserMock.deleteByWalletAddress,
+    ),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
   async remove(@Param('wallet_address') wallet_address: string) {
