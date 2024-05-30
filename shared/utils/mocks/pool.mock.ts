@@ -110,4 +110,54 @@ export const PoolMock = {
     updated_at: '2024-05-28T23:45:51.088Z',
     details: [],
   },
+  poolWithTrades: {
+    pool: {
+      id: 2,
+      project_name: 'project 2',
+      ticker: 'string',
+      participants: 0,
+      funds_raised: '0.00000000',
+      live_until: '2024-05-29T14:48:00.000Z',
+      status: 'Upcoming',
+      opens_on: '2024-05-29T14:48:00.000Z',
+      chain: 'string',
+      start_date: '2024-05-29T14:48:00.000Z',
+      curator: 'string',
+      social_links: [
+        {
+          url: 'https://projectwebsite.com',
+          name: 'website',
+        },
+        {
+          url: 'https://twitter.com/project',
+          name: 'twitter',
+        },
+      ],
+      token_vesting: true,
+      lbp_type: 'string',
+      about: 'string',
+      created_at: '2024-05-29T23:43:26.632Z',
+      updated_at: '2024-05-29T23:43:26.632Z',
+    },
+    trades: {
+      items: [
+        {
+          id: 1,
+          trade_type: 'string',
+          trade_amount: '0.0000000000',
+          trade_price: '0.0000000000',
+          trade_date: '2024-05-30T06:06:43.801Z',
+          created_at: '2024-05-30T00:05:50.059Z',
+          updated_at: '2024-05-30T00:05:50.059Z',
+        },
+      ],
+      meta: {
+        totalItems: 1,
+        itemCount: 1,
+        itemsPerPage: 10,
+        totalPages: 1,
+        currentPage: 1,
+      },
+    },
+  },
 };

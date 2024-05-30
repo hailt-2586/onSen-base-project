@@ -12,6 +12,7 @@ import { PriceHistory } from '../../price_history/entites/price_history.entity';
 import { TeamMember } from '../../team_members/entites/team-members.entity';
 import { Ecosystem } from '../../ecosystems/entites/ecosystem.entity';
 import { PoolDetails } from '../../pool_details/entites/pool-details.entity';
+import { Trade } from '../../trades/entites/trade.entity';
 
 @Entity('pools')
 export class Pool {
@@ -60,10 +61,10 @@ export class Pool {
   @Column({ type: 'text', nullable: true })
   about: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updated_at: Date;
 
   @OneToMany(() => Price, (price) => price.pool)
@@ -80,4 +81,7 @@ export class Pool {
 
   @OneToMany(() => PoolDetails, (poolDetails) => poolDetails.pool)
   details: PoolDetails[];
+
+  @OneToMany(() => Trade, (trade) => trade.pool)
+  trades: Trade[];
 }

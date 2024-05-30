@@ -17,6 +17,7 @@ import { exampleErrorResponse, exampleSuccessResponse } from '@shared/utils/comm
 import { ErrorResponseDto } from '@shared/dto/common.dto';
 import { E_STATUS } from '@shared/enums/common.enum';
 import { PoolMock } from '@shared/utils/mocks/pool.mock';
+import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 
 @Controller('pools')
 @ApiTags('pools')
@@ -67,8 +68,8 @@ export class PoolsController {
     ),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
-  async findPoolWithInformation(@Param('id') id: number) {
-    return this.poolsService.findPoolWithInformation(id);
+  async findInformationInPool(@Param('id') id: number) {
+    return this.poolsService.findInformationInPool(id);
   }
 
   @Public()
@@ -79,7 +80,28 @@ export class PoolsController {
     exampleSuccessResponse(HttpStatus.OK, 'Get pool by id with details', PoolMock.poolWithDetails),
   )
   @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
-  async findPoolWithDetails(@Param('id') id: number) {
-    return this.poolsService.findPoolWithDetails(id);
+  async findDetailsInPool(@Param('id') id: number) {
+    return this.poolsService.findDetailsInPool(id);
+  }
+
+  @Public()
+  @ResponseMessage('Get pool by id with trades')
+  @Get(':id/trades')
+  @ApiOperation({ summary: 'Get pool by id with trades' })
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  @ApiQuery({ name: 'sort', required: false, type: String, example: 'trade_date,asc' })
+  @ApiResponse(
+    exampleSuccessResponse(HttpStatus.OK, 'Get pool by id with trades', PoolMock.poolWithTrades),
+  )
+  @ApiResponse(exampleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponseDto))
+  async findTradesInPool(
+    @Param('id') id: number,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('sort') sort: string = 'trade_date,asc',
+  ) {
+    const options: IPaginationOptions = { page, limit };
+    return this.poolsService.findTradesInPool(id, options, sort);
   }
 }

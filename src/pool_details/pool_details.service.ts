@@ -18,9 +18,11 @@ export class PoolDetailsService {
 
   async store(storePoolDetailsDto: StorePoolDetailsDto) {
     // check pool exist
-    await this.poolsService.findById(storePoolDetailsDto.pool_id);
-
-    const poolDetails = await this.poolDetailsRepository.save(storePoolDetailsDto);
+    const pool = await this.poolsService.findById(storePoolDetailsDto.pool_id);
+    const poolDetails = await this.poolDetailsRepository.save({
+      ...storePoolDetailsDto,
+      pool,
+    });
 
     return {
       id: poolDetails.id,

@@ -18,9 +18,11 @@ export class EcosystemsService {
 
   async store(storeEcosystemDto: StoreEcosystemDto) {
     // check pool exist
-    await this.poolsService.findById(storeEcosystemDto.pool_id);
-
-    const ecosystem = await this.ecosystemRepository.save(storeEcosystemDto);
+    const pool = await this.poolsService.findById(storeEcosystemDto.pool_id);
+    const ecosystem = await this.ecosystemRepository.save({
+      ...storeEcosystemDto,
+      pool,
+    });
 
     return {
       id: ecosystem.id,
@@ -31,7 +33,7 @@ export class EcosystemsService {
   async findById(id: number) {
     const ecosystem = await this.ecosystemRepository.findOneBy({ id });
     if (!ecosystem) {
-      throw new NotFoundException('Ecosystem with id ${id} not found');
+      throw new NotFoundException(`Ecosystem with id ${id} not found`);
     }
 
     return ecosystem;

@@ -18,9 +18,11 @@ export class TeamMembersService {
 
   async store(storeTeamMembersDto: StoreTeamMemberDto) {
     // check pool exist
-    await this.poolsService.findById(storeTeamMembersDto.pool_id);
-
-    const teamMember = await this.teamMemberRepository.save(storeTeamMembersDto);
+    const pool = await this.poolsService.findById(storeTeamMembersDto.pool_id);
+    const teamMember = await this.teamMemberRepository.save({
+      ...storeTeamMembersDto,
+      pool,
+    });
 
     return {
       id: teamMember.id,

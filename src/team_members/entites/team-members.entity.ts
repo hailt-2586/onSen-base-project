@@ -5,6 +5,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { Pool } from '../../pools/entites/pool.entity';
 import { ISocialLink } from '../../pools/pool.interface';
@@ -13,9 +14,6 @@ import { ISocialLink } from '../../pools/pool.interface';
 export class TeamMember {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @ManyToOne(() => Pool, (pool) => pool.team_members, { onDelete: 'CASCADE' })
-  pool: Pool;
 
   @Column({ type: 'varchar', length: 255 })
   name: string;
@@ -31,4 +29,8 @@ export class TeamMember {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updated_at: Date;
+
+  @ManyToOne(() => Pool, (pool) => pool.team_members, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'poolId' })
+  pool: Pool;
 }
