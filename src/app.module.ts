@@ -15,6 +15,7 @@ import { TeamMembersModule } from './team_members/team_members.module';
 import { EcosystemsModule } from './ecosystems/ecosystems.module';
 import { PoolDetailsModule } from './pool_details/pool_details.module';
 import { TradesModule } from './trades/trades.module';
+import { CacheRedisModule } from './cache/redis.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { TradesModule } from './trades/trades.module';
     EcosystemsModule,
     PoolDetailsModule,
     TradesModule,
+    CacheRedisModule,
   ],
 })
 export class AppModule {

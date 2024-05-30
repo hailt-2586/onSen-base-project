@@ -59,13 +59,13 @@ yarn test
 
 ## Feature list
 - [x] Database (PostgreSQL, TypeORM)
-- [ ] Caching (Redis store)
-- [ ] Sign in and sign up (JWT)
+- [x] Caching (Redis store)
+- [x] Sign in and sign up (JWT)
 - [ ] Forget password
 - [ ] Support multi-language i18n
 - [x] Validation (request params, query..)
 - [x] Docker installation
-- [ ] CI/CD
+- [x] CI/CD
 - [x] Swagger for API document
 - [x] Linter with Eslint for Typescript
 - [x] Logger with `Morgan`
