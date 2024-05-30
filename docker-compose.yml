@@ -33,7 +33,6 @@ services:
     restart: always
     networks:
       - onsen-net
-
   adminer:
     image: adminer
     ports:
@@ -41,7 +40,15 @@ services:
     restart: always
     networks:
       - onsen-net
-
+  redis:
+    image: redis:7.2-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - onsen_redis_volume:/data
+    restart: always
+    networks:
+      - onsen-net
 networks:
   onsen-net:
     driver: bridge
@@ -51,3 +58,4 @@ networks:
           gateway: 172.229.1.1
 volumes:
   onsen_postgres_volume:
+  onsen_redis_volume:
